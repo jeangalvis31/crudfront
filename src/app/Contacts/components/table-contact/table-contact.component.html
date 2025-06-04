@@ -1,0 +1,32 @@
+<h1 class="text-white text-2xl font-bold">Tabla de contactos</h1>
+<div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-2">
+    <table class="table">
+        <!-- head -->
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- row 1 -->
+            @for (contact of contacts(); track contact.id) {
+            <tr>
+                <th>{{contact.id}}</th>
+                <td>{{contact.name}}</td>
+                <td>{{contact.phone}}</td>
+                <td>{{contact.email}}</td>
+                <td><button (click)="onDelete(contact.id)" class="btn btn-error"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                        </svg></button></td>
+            </tr>
+            }
+            <!-- row 2 -->
+        </tbody>
+    </table>
+</div>
