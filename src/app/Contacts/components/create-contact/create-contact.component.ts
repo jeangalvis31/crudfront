@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create-contact',
@@ -9,28 +9,10 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 })
 export class CreateContactComponent {
 
-  private contactService = inject(ContactService);
-  fb = inject(FormBuilder);
+  private contactService = inject(ContactService)
 
-  contactForm = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern("^[a-zA-ZÀ-ÿ\\s]+$")]],
-    phone: ['', [
-      Validators.required,
-      Validators.pattern('^[0-9]{7,15}$')
-    ]],
-    email: ['', [
-      Validators.required,
-      Validators.email
-    ]],
-  })
-
-  
-
-  onSubmit() {
-    console.log("submit")
-    if (this.contactForm.invalid) {
-      this.contactForm.markAllAsTouched();
-      return;
-    }
+  modalVisible = this.contactService;
+  openModal() {
+    this.contactService.openModal('create');
   }
 }

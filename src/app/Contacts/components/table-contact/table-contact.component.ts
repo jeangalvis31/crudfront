@@ -1,13 +1,16 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { ContactResponse } from '../../interfaces/contact.interface';
+import { UpdateContactComponent } from "./update-contact/update-contact.component";
+import { DeleteContactComponent } from "./deleteContact/deleteContact.component";
+import { LowerCasePipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-table-contact',
-  imports: [],
+  imports: [UpdateContactComponent, DeleteContactComponent, TitleCasePipe, LowerCasePipe],
   templateUrl: './table-contact.component.html',
 })
-export class TableContactComponent implements OnInit {
+export class TableContactComponent {
 
 
   private contactService = inject(ContactService);
@@ -22,16 +25,19 @@ export class TableContactComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
+  private refreshEffect = effect(() => {
+    this.contactService.refreshSignal();
     this.loadContacts();
+  });
+
+
+
+  updateContact(contact: ContactResponse) {
+    console.log(contact);
+
+    /*     this.contactService.updateContact(contact.id, contact).subscribe({
+          next: () => this.loadContacts(),
+          error: err => console.error(err)
+        }); */
   }
-
-  onDelete(id: number): void {
-    this.contactService.deleteContacts(id).subscribe({
-      next: () => this.loadContacts(),
-      error: err => console.error(err)
-    });
-  }
-
-
 }
