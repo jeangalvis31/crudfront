@@ -29,15 +29,4 @@ export class TableContactComponent {
     this.contactService.refreshSignal();
     this.loadContacts();
   });
-
-
-
-  updateContact(contact: ContactResponse) {
-    console.log(contact);
-
-    /*     this.contactService.updateContact(contact.id, contact).subscribe({
-          next: () => this.loadContacts(),
-          error: err => console.error(err)
-        }); */
-  }
 }

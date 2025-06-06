@@ -47,6 +47,7 @@ export class FormUpdateContactComponent {
 
   closeModal() {
     this.contactService.closeModal();
+    this.contactService.clearSelectedContact()
   }
 
   onSubmit() {
