@@ -1,13 +1,12 @@
 import { Component, input, signal } from '@angular/core';
-import { FormCreateContactComponent } from "../form-create-contact/form-create-contact.component";
-import { FormUpdateContactComponent } from "../form-update-contact/form-update-contact.component";
+import { ContactFormComponent } from "../contact-form/contact-form.component";
 
 @Component({
   selector: 'app-modal',
-  imports: [FormCreateContactComponent, FormUpdateContactComponent],
+  imports: [ContactFormComponent],
   templateUrl: './modal.component.html',
 })
 export class ModalComponent {
-  formType = input<'create' | 'update'  | null>();
+  formType = input.required<'create' | 'update'>();
   title = input.required<string>();
 }

@@ -20,6 +20,7 @@
                 <td>{{contact.phone}}</td>
                 <td>{{contact.email | lowercase }}</td>
                 <td class="flex gap-2">
+                    <app-get-specific-contact [contact]="contact"></app-get-specific-contact>
                     <app-update-contact [contact]="contact"></app-update-contact>
                     <app-delete-contact [contact]="contact"></app-delete-contact>
                 </td>

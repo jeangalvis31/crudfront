@@ -4,10 +4,11 @@ import { ContactResponse } from '../../interfaces/contact.interface';
 import { UpdateContactComponent } from "./update-contact/update-contact.component";
 import { DeleteContactComponent } from "./deleteContact/deleteContact.component";
 import { LowerCasePipe, TitleCasePipe } from '@angular/common';
+import { GetSpecificContactComponent } from "./get-specific-contact/get-specific-contact.component";
 
 @Component({
   selector: 'app-table-contact',
-  imports: [UpdateContactComponent, DeleteContactComponent, TitleCasePipe, LowerCasePipe],
+  imports: [UpdateContactComponent, DeleteContactComponent, TitleCasePipe, LowerCasePipe, GetSpecificContactComponent],
   templateUrl: './table-contact.component.html',
 })
 export class TableContactComponent {

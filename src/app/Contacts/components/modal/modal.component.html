@@ -2,11 +2,7 @@
     <div class="modal-box flex flex-col">
         <h3 class="text-lg font-bold text-info">{{title()}}</h3>
         <div class="modal-action w-full">
-            @if (formType() === 'create') {
-            <app-form-create-contact class="flex w-full"></app-form-create-contact>
-            } @else if (formType() === 'update') {
-            <app-form-update-contact class="flex w-full"></app-form-update-contact>
-            }
+            <app-contact-form class="flex w-full" [mode]="formType()" />
         </div>
     </div>
 </dialog>

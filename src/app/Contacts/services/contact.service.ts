@@ -25,11 +25,11 @@ export class ContactService {
 
 
   modalTitle = computed(() => {
-  const type = this._modalType();
-  if (type === 'create') return 'Crear nuevo contacto';
-  if (type === 'update') return 'Actualizar contacto';
-  return '';
-});
+    const type = this._modalType();
+    if (type === 'create') return 'Crear nuevo contacto';
+    if (type === 'update') return 'Actualizar contacto';
+    return '';
+  });
 
   openModal(type: 'create' | 'update') {
     this._modalVisible.set(true);
@@ -69,12 +69,22 @@ export class ContactService {
 
 
   //==========Peticiones http al back============
+
+  getContactById(id: number): Observable<ContactResponse> {
+    return this.http.get<ContactResponse>(`${baseUrl}/contact/${id}`).pipe(
+      map((contact) => ContactMapper.mapRestContactGetToContactGet(contact)),
+      catchError((error) => {
+        console.log('Error fetching', error);
+        return throwError(() => new Error(`No se pudo obtener el contacto`));
+      })
+    )
+  }
+
   getContacts(): Observable<ContactResponse[]> {
     return this.http.get<ContactResponse[]>(`${baseUrl}/contact`).pipe(
       map((contactResponse) => ContactMapper.mapRestContactGetArrayToContactGetArray(contactResponse)),
       catchError((error) => {
         console.log('Error fetching', error);
-
         return throwError(() => new Error(`No se pudo obtener los contactos`));
       })
     )
@@ -92,7 +102,7 @@ export class ContactService {
       map((createdContact) => ContactMapper.mapCreateContactGetToContactGet(createdContact)),
       catchError((error) => {
         console.log('Error fetching', error);
-        return throwError(() => new Error(`No se pudo eliminar el contacto`));
+        return throwError(() => new Error(`No se pudo crear el contacto`));
       })
     )
   }
@@ -101,7 +111,7 @@ export class ContactService {
       map((contact) => ContactMapper.mapRestContactGetToContactGet(contact)),
       catchError((error) => {
         console.log('Error fetching', error);
-        return throwError(() => new Error(`No se pudo eliminar el contacto`));
+        return throwError(() => new Error(`No se pudo modificar el contacto`));
       })
     )
   }

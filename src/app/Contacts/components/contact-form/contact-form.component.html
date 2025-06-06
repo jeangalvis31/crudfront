@@ -44,7 +44,9 @@
 
 
     <div class="flex gap-2">
-        <button (click)="onCreate()" class="btn btn-secondary" type="button">Crear</button>
-        <button (click)="closeModal()" class="btn btn-info">Close</button>
+        <button (click)="onSubmit()" class="btn btn-secondary" type="button">
+            {{ mode() === 'create' ? 'Crear' : 'Actualizar' }}
+        </button>
+        <button (click)="closeModal()" class="btn btn-info">Cerrar</button>
     </div>
 </form>
