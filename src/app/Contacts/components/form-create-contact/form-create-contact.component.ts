@@ -2,26 +2,28 @@ import { Component, inject, Input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateContact } from '../../interfaces/create-contact.interface';
 import { ContactService } from '../../services/contact.service';
-import { ContactResponse } from '../../interfaces/contact.interface';
+import { FormUtils } from '../../../utils/form-utils';
+import { ControlErrorsComponent } from "../../../shared/components/control-errors/control-errors.component";
 
 @Component({
   selector: 'app-form-create-contact',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ControlErrorsComponent],
   templateUrl: './form-create-contact.component.html',
 })
 export class FormCreateContactComponent {
   private contactService = inject(ContactService);
   fb = inject(FormBuilder);
+  formUtils = FormUtils;
 
   contactForm = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern("^[a-zA-ZÀ-ÿ\\s]+$")]],
+    name: ['', [Validators.required, Validators.pattern(this.formUtils.namePattern)]],
     phone: ['', [
       Validators.required,
-      Validators.pattern('^[0-9]{7,15}$')
+      Validators.pattern(this.formUtils.phonePatter)
     ]],
     email: ['', [
       Validators.required,
-      Validators.email
+      Validators.pattern(this.formUtils.emailPattern)
     ]],
   })
 

@@ -1,28 +1,32 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactResponse } from '../../interfaces/contact.interface';
+import { FormUtils } from '../../../utils/form-utils';
+import { ControlErrorsComponent } from "../../../shared/components/control-errors/control-errors.component";
 
 @Component({
   selector: 'app-form-update-contact',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ControlErrorsComponent],
   templateUrl: './form-update-contact.component.html',
 })
 export class FormUpdateContactComponent {
   private contactService = inject(ContactService);
   private fb = inject(FormBuilder);
 
+  formUtils = FormUtils;
+
   contactForm = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern("^[a-zA-ZÀ-ÿ\\s]+$")]],
+    name: ['', [Validators.required, Validators.pattern(this.formUtils.namePattern)]],
     phone: ['', [
       Validators.required,
-      Validators.pattern('^[0-9]{7,15}$')
+      Validators.pattern(this.formUtils.phonePatter)
     ]],
     email: ['', [
       Validators.required,
-      Validators.email
+      Validators.pattern(this.formUtils.emailPattern)
     ]],
-  });
+  })
 
   contact = this.contactService.selectedContact;
 

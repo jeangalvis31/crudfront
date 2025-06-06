@@ -4,6 +4,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { ContactResponse } from '../interfaces/contact.interface';
 import { environment } from '../environments/environment';
 import { CreateContact } from '../interfaces/create-contact.interface';
+import { ContactMapper } from '../mappers/contact.mapper';
 
 const baseUrl = environment.baseUrl;
 
@@ -70,6 +71,7 @@ export class ContactService {
   //==========Peticiones http al back============
   getContacts(): Observable<ContactResponse[]> {
     return this.http.get<ContactResponse[]>(`${baseUrl}/contact`).pipe(
+      map((contactResponse) => ContactMapper.mapRestContactGetArrayToContactGetArray(contactResponse)),
       catchError((error) => {
         console.log('Error fetching', error);
 
@@ -87,6 +89,7 @@ export class ContactService {
   }
   createContact(createContact: CreateContact): Observable<CreateContact> {
     return this.http.post<CreateContact>(`${baseUrl}/contact`, createContact).pipe(
+      map((createdContact) => ContactMapper.mapCreateContactGetToContactGet(createdContact)),
       catchError((error) => {
         console.log('Error fetching', error);
         return throwError(() => new Error(`No se pudo eliminar el contacto`));
@@ -95,6 +98,7 @@ export class ContactService {
   }
   updateContact(id: number, contactResponse: ContactResponse): Observable<ContactResponse> {
     return this.http.put<ContactResponse>(`${baseUrl}/contact/${id}`, contactResponse).pipe(
+      map((contact) => ContactMapper.mapRestContactGetToContactGet(contact)),
       catchError((error) => {
         console.log('Error fetching', error);
         return throwError(() => new Error(`No se pudo eliminar el contacto`));

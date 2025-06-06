@@ -8,15 +8,7 @@
         </svg>
         <input type="text" placeholder="Nombre" formControlName="name">
     </label>
-    @if(contactForm.get('name')?.invalid && contactForm.get('name')?.touched){
-    @if (contactForm.get('name')?.errors?.['pattern']) {
-    <small class="text-red-500">Ingrese Nombre y Apellido.</small>
-    }@else if (contactForm.get('name')?.errors?.['required']) {
-    <small class="text-red-500">El nombre completo es requerido.</small>
-    }@else {
-    <small class="text-red-500">Error no controlado.</small>
-    }
-    }
+    <app-control-errors [control]="contactForm.get('name')" />
 
 
 
@@ -33,15 +25,7 @@
         </svg>
         <input type="tel" class="tabular-nums" placeholder="Phone" formControlName="phone" />
     </label>
-    @if(contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched){
-    @if (contactForm.get('phone')?.errors?.['pattern']) {
-    <small class="text-red-500">Ingrese un número telefónico valido.</small>
-    }@else if (contactForm.get('phone')?.errors?.['required']) {
-    <small class="text-red-500">El número telefónico es requerido</small>
-    }@else {
-    <small class="text-red-500">Error no controlado.</small>
-    }
-    }
+    <app-control-errors [control]="contactForm.get('phone')" />
 
 
 
@@ -54,16 +38,7 @@
         </svg>
         <input type="email" placeholder="mail@site.com" formControlName="email" />
     </label>
-    @if(contactForm.get('email')?.invalid && contactForm.get('email')?.touched){
-    @if (contactForm.get('email')?.errors?.['email']) {
-    <small class="text-red-500">Ingrese un correo electrónico valido.</small>
-    }@else if (contactForm.get('email')?.errors?.['required']) {
-    <small class="text-red-500">El correo es requerido.</small>
-    }@else {
-    <small class="text-red-500">Error no controlado.</small>
-    }
-
-    }
+    <app-control-errors [control]="contactForm.get('email')" />
 
     <div class="flex gap-2">
         <button (click)="onSubmit()" class="btn btn-secondary" type="button">Actualizar</button>

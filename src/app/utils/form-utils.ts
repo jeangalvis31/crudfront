@@ -5,7 +5,7 @@ export class FormUtils {
     static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
     static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
     static phonePatter = '^[0-9]{7,15}$';
-    static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+    static namePattern = '^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)+$';
 
     static isValidField(form: FormGroup, fieldName: string): boolean | null {
         return (
@@ -18,23 +18,20 @@ export class FormUtils {
             switch (key) {
                 case 'required':
                     return 'Este campo es requerido';
-                case 'minlength':
-                    return `Minimo de ${errors['minlength'].requiredLength} caracteres`;
-                case 'min':
-                    return `valor minimo de ${errors['min'].min}`;
-                case 'noStrider':
-                    return `no se puede usar el username strider`
-                case 'emailTaken':
-                    return `El correo electrónico ya esta en uso`
                 case 'pattern':
-                    if (errors['pattern'].requiredPattern == FormUtils.emailPattern) {
-                        return 'Correo electrónico no permitido';
-                    } else if (errors['pattern'].requiredPattern == FormUtils.notOnlySpacesPattern) {
-                        return 'Nombre de usuario invalido.'
+                    const pattern = errors['pattern'].requiredPattern;
+                    switch (pattern) {
+                        case FormUtils.emailPattern:
+                            return 'Correo electrónico inválido';
+                        case FormUtils.notOnlySpacesPattern:
+                            return 'Texto inválido';
+                        case FormUtils.phonePatter:
+                            return 'Teléfono inválido (7-15 dígitos)';
+                        case FormUtils.namePattern:
+                            return 'Debe ingresar nombre y apellido';
+                        default:
+                            return 'Formato inválido';
                     }
-                    return 'Error de patron regex';
-                case 'email':
-                    return `El valor ingresado no es un correo electrónico`;
                 default:
                     return `Error de validación no controlado`;
 
