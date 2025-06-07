@@ -6,11 +6,12 @@
     <div class="hero-content text-center">
         <div class="max-w-md">
             <h1 class="text-3xl font-bold">Información del contacto</h1>
-            <div class="flex flex-col items-start mt-5 p-2">
-                <h6>Id: <span class="text-amber-400">{{contact?.id}}</span></h6>
-                <h6>Name: <span class="text-amber-400">{{contact?.name}}</span></h6>
-                <h6>Phone: <span class="text-amber-400">{{contact?.phone}}</span></h6>
-                <h6>Email: <span class="text-amber-400">{{contact?.email}}</span></h6>
+            <div class="card bg-primary text-primary-content w-96 mt-5">
+                <div class="card-body">
+                    <h2 class="card-title">{{contact?.name}}</h2>
+                    <h6 class="font-bold">Telefono: <span class="text-amber-400">{{contact?.phone}}</span></h6>
+                    <h6 class="font-bold">Correo: <span class="text-amber-400">{{contact?.email}}</span></h6>
+                </div>
             </div>
             <h1 class="text-xl font-bold mt-5">Solo para ver el router link</h1>
             <button routerLink="/home" class="btn btn-primary mt-5">volver</button>
