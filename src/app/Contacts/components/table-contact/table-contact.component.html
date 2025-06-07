@@ -4,21 +4,18 @@
         <!-- head -->
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Telefono</th>
-                <th>Correo</th>
+                @for (col of columns; track col) {
+                <th>{{ col | titlecase }}</th>
+                }
                 <th>Accion</th>
             </tr>
         </thead>
         <tbody>
-            <!-- row 1 -->
             @for (contact of contacts(); track contact.id) {
             <tr>
-                <th>{{contact.id}}</th>
-                <td>{{contact.name | titlecase}}</td>
-                <td>{{contact.phone}}</td>
-                <td>{{contact.email | lowercase }}</td>
+                @for (col of columns; track col) {
+                <td>{{ contact[col] }}</td>
+                }
                 <td class="flex gap-2">
                     <app-get-specific-contact [contact]="contact"></app-get-specific-contact>
                     <app-update-contact [contact]="contact"></app-update-contact>
@@ -26,7 +23,6 @@
                 </td>
             </tr>
             }
-            <!-- row 2 -->
         </tbody>
     </table>
 </div>

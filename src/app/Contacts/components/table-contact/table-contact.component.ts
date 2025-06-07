@@ -8,7 +8,7 @@ import { GetSpecificContactComponent } from "./get-specific-contact/get-specific
 
 @Component({
   selector: 'app-table-contact',
-  imports: [UpdateContactComponent, DeleteContactComponent, TitleCasePipe, LowerCasePipe, GetSpecificContactComponent],
+  imports: [UpdateContactComponent, DeleteContactComponent, TitleCasePipe, GetSpecificContactComponent],
   templateUrl: './table-contact.component.html',
 })
 export class TableContactComponent {
@@ -18,10 +18,18 @@ export class TableContactComponent {
 
   contacts = signal<ContactResponse[]>([]);
 
+  columns: string[] = [];
+
+
   loadContacts(): void {
     this.contactService.getContacts()
       .subscribe({
-        next: (resp) => this.contacts.set(resp),
+        next: (resp) => {
+          this.contacts.set(resp)
+          if (resp.length > 0) {
+            this.columns = Object.keys(resp[0]);
+          }
+        },
         error: err => console.error(err)
       });
   }

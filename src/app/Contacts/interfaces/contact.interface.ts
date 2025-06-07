@@ -3,4 +3,5 @@ export interface ContactResponse {
     name:  string;
     phone: string;
     email: string;
+    [key: string]: string | number;
 }
