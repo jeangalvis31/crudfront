@@ -29,8 +29,7 @@ export class TableContactComponent {
           if (resp.length > 0) {
             this.columns = Object.keys(resp[0]);
           }
-        },
-        error: err => console.error(err)
+        }
       });
   }
 

@@ -72,47 +72,26 @@ export class ContactService {
 
   getContactById(id: number): Observable<ContactResponse> {
     return this.http.get<ContactResponse>(`${baseUrl}/contact/${id}`).pipe(
-      map((contact) => ContactMapper.mapRestContactGetToContactGet(contact)),
-      catchError((error) => {
-        console.log('Error fetching', error);
-        return throwError(() => new Error(`No se pudo obtener el contacto`));
-      })
+      map((contact) => ContactMapper.mapRestContactGetToContactGet(contact))
     )
   }
 
   getContacts(): Observable<ContactResponse[]> {
     return this.http.get<ContactResponse[]>(`${baseUrl}/contact`).pipe(
-      map((contactResponse) => ContactMapper.mapRestContactGetArrayToContactGetArray(contactResponse)),
-      catchError((error) => {
-        console.log('Error fetching', error);
-        return throwError(() => new Error(`No se pudo obtener los contactos`));
-      })
+      map((contactResponse) => ContactMapper.mapRestContactGetArrayToContactGetArray(contactResponse))
     )
   }
   deleteContacts(id: number): Observable<{ message: string }> {
-    return this.http.delete<{ message: string }>(`${baseUrl}/contact/${id}`).pipe(
-      catchError((error) => {
-        console.log('Error fetching', error);
-        return throwError(() => new Error(`No se pudo eliminar el contacto`));
-      })
-    )
+    return this.http.delete<{ message: string }>(`${baseUrl}/contact/${id}`)
   }
   createContact(createContact: CreateContact): Observable<CreateContact> {
     return this.http.post<CreateContact>(`${baseUrl}/contact`, createContact).pipe(
-      map((createdContact) => ContactMapper.mapCreateContactGetToContactGet(createdContact)),
-      catchError((error) => {
-        console.log('Error fetching', error);
-        return throwError(() => new Error(`No se pudo crear el contacto`));
-      })
+      map((createdContact) => ContactMapper.mapCreateContactGetToContactGet(createdContact))
     )
   }
   updateContact(id: number, contactResponse: ContactResponse): Observable<ContactResponse> {
     return this.http.put<ContactResponse>(`${baseUrl}/contact/${id}`, contactResponse).pipe(
-      map((contact) => ContactMapper.mapRestContactGetToContactGet(contact)),
-      catchError((error) => {
-        console.log('Error fetching', error);
-        return throwError(() => new Error(`No se pudo modificar el contacto`));
-      })
+      map((contact) => ContactMapper.mapRestContactGetToContactGet(contact))
     )
   }
   //===========================================
