@@ -1,4 +1,4 @@
-import { Component, Input, input, signal } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
 
@@ -16,6 +16,6 @@ export class ControlErrorsComponent {
 
   get errorMessage(): string | null {
     if (!this.control || !this.control.errors) return null;
-    return FormUtils.getTextErrors(this.control.errors as ValidationErrors);
+    return FormUtils.getFirstErrorText(this.control.errors as ValidationErrors);
   }
 }
